@@ -1,0 +1,9 @@
+## Interface: 90002
+## Title: Plus List
+## Notes: /pluslist or /pl to list your top 10 M+ runs this week
+## Author: Tyyrenn-Zul'jin (US)
+## Version: 1.1.0
+## OptionalDeps:
+## Dependencies:
+## SavedVariables:
+pluslist.xml
