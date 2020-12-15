@@ -36,6 +36,9 @@ function pluslist_verbose(runInfo)
     i = i + 1
     if (i > 10) then break end
   end
+  if (i == 1) then
+    DEFAULT_CHAT_FRAME:AddMessage('|cffff0000Pluslist: No runs completed yet this week|r')
+  end
 end
 
 function pluslist_brief(runInfo)
@@ -47,6 +50,9 @@ function pluslist_brief(runInfo)
     if (i == 1 or i == 4 or i == 10) then color = '|cff00ff00' end
     s = s .. string.format('%s+%d|r', color, run.level)
     i = i + 1
+  end
+  if (i == 1) then
+    s = '|cffff0000Pluslist: No runs completed yet this week|r'
   end
   DEFAULT_CHAT_FRAME:AddMessage(s)
 end
