@@ -1,6 +1,17 @@
 SLASH_PLUSLISTVERBOSE1 = '/pluslist'
 SLASH_PLUSLISTBRIEF1 = '/pl'
 
+local cbframe = CreateFrame('Frame', 'pluslist', UIParent)
+cbframe:SetScript('OnEvent', function(self, event)
+  if (event == 'CHALLENGE_MODE_MAPS_UPDATE') then
+    local inclPrevWks = false
+    local inclIncompleteRuns = true
+    local runInfo = C_MythicPlus.GetRunHistory(inclPrevWks, inclIncompleteRuns)
+    self.fn(pluslist_pairsByLevel(runInfo))
+    self:UnregisterEvent('CHALLENGE_MODE_MAPS_UPDATE')
+  end
+end)
+
 function pluslist_pairsByLevel(t)
   local a = {}
   for n in pairs(t) do table.insert(a, n) end
@@ -59,11 +70,9 @@ end
 
 function CreateChatCommandHandler(fn)
   return function(msg, editbox)
-    local inclPrevWks = false
-    local inclIncompleteRuns = true
-    local runInfo = C_MythicPlus.GetRunHistory(inclPrevWks, inclIncompleteRuns)
-
-    fn(pluslist_pairsByLevel(runInfo))
+    cbframe:RegisterEvent('CHALLENGE_MODE_MAPS_UPDATE')
+    cbframe.fn = fn
+    C_MythicPlus.RequestRewards()
   end
 end
 

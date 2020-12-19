@@ -6,4 +6,4 @@
 ## OptionalDeps:
 ## Dependencies:
 ## SavedVariables:
-pluslist.xml
+pluslist.lua
