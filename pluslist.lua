@@ -1,6 +1,7 @@
 SLASH_PLUSLISTVERBOSE1 = '/pluslist'
 SLASH_PLUSLISTBRIEF1 = '/pl'
 
+local noRunsYetMessage = '|cffff0000Pluslist: No runs completed yet this week|r'
 local cbframe = CreateFrame('Frame', 'pluslist', UIParent)
 cbframe:SetScript('OnEvent', function(self, event)
   if (event == 'CHALLENGE_MODE_MAPS_UPDATE') then
@@ -28,6 +29,12 @@ function pluslist_pairsByLevel(t)
   return iter
 end
 
+function pluslist_colorByRank(rank)
+  local green = '|cff00ff00'
+  local colors = { [1] = green, [4] = green, [10] = green }
+  return colors[rank] or ''
+end
+
 function pluslist_verbose(runInfo)
   local rewards = {
     [2] = 200,  [3] = 203,  [4] = 207,
@@ -38,9 +45,8 @@ function pluslist_verbose(runInfo)
   }
   local i = 1
   for _,run in runInfo do
-    local color = ''
+    local color = pluslist_colorByRank(i)
     local reward = rewards[run.level]
-    if (i == 1 or i == 4 or i == 10) then color = '|cff00ff00' end
     local s = string.format('%s%d: +%d %s (%d)|r', color, i, run.level,
       C_ChallengeMode.GetMapUIInfo(run.mapChallengeModeID), reward)
     DEFAULT_CHAT_FRAME:AddMessage(s)
@@ -48,24 +54,20 @@ function pluslist_verbose(runInfo)
     if (i > 10) then break end
   end
   if (i == 1) then
-    DEFAULT_CHAT_FRAME:AddMessage('|cffff0000Pluslist: No runs completed yet this week|r')
+    DEFAULT_CHAT_FRAME:AddMessage(noRunsYetMessage)
   end
 end
 
 function pluslist_brief(runInfo)
   local i = 1
-  local s = ''
+  local s = { [1] = noRunsYetMessage }
   for _,run in runInfo do
-    local color = ''
-    if (s ~= '') then s = s .. ', ' end
-    if (i == 1 or i == 4 or i == 10) then color = '|cff00ff00' end
-    s = s .. string.format('%s+%d|r', color, run.level)
+    local color = pluslist_colorByRank(i)
+    s[i] = string.format('%s+%d|r', color, run.level)
     i = i + 1
+    if (i > 10) then break end
   end
-  if (i == 1) then
-    s = '|cffff0000Pluslist: No runs completed yet this week|r'
-  end
-  DEFAULT_CHAT_FRAME:AddMessage(s)
+  DEFAULT_CHAT_FRAME:AddMessage(table.concat(s, ', '))
 end
 
 function CreateChatCommandHandler(fn)
