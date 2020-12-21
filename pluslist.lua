@@ -53,7 +53,7 @@ function pluslist_verbose(runInfo)
   local i = 1
   for _,run in runInfo do
     local color = pluslist_colorByRank(i)
-    local reward = rewards[run.level]
+    local reward = math.min(rewards[run.level], 15)
     local s = string.format('%s%d: +%d %s (%d)|r', color, i, run.level,
       C_ChallengeMode.GetMapUIInfo(run.mapChallengeModeID), reward)
     DEFAULT_CHAT_FRAME:AddMessage(s)
