@@ -30,8 +30,8 @@ function pluslist_pairsByLevel(t)
 end
 
 function pluslist_colorByRank(rank)
-  local green = '|cff00ff00'
-  local colors = { [1] = green, [4] = green, [10] = green }
+  local epic, rare, uncommon = '|cffa335ee', '|cff0070dd', '|cff1eff00'
+  local colors = { [1] = epic, [4] = rare, [10] = uncommon }
   return colors[rank] or ''
 end
 
