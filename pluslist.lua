@@ -16,7 +16,11 @@ end)
 function pluslist_pairsByLevel(t)
   local a = {}
   for n in pairs(t) do table.insert(a, n) end
-  table.sort(a, function(x, y) return t[y].level < t[x].level end)
+  table.sort(a, function(x, y)
+    return t[x].level == t[y].level
+      and t[y].mapChallengeModeID > t[x].mapChallengeModeID
+      or t[y].level < t[x].level
+  end)
 
   local i = 0
   local iter = function()
