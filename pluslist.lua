@@ -3,13 +3,15 @@ SLASH_PLUSLISTBRIEF1 = '/pl'
 
 local noRunsYetMessage = '|cffff0000Pluslist: No runs completed yet this week|r'
 local cbframe = CreateFrame('Frame', 'pluslist', UIParent)
+local lastupdate = nil
+cbframe:RegisterEvent('CHALLENGE_MODE_MAPS_UPDATE')
 cbframe:SetScript('OnEvent', function(self, event)
   if (event == 'CHALLENGE_MODE_MAPS_UPDATE') then
-    local inclPrevWks = false
-    local inclIncompleteRuns = true
-    local runInfo = C_MythicPlus.GetRunHistory(inclPrevWks, inclIncompleteRuns)
-    self.fn(pluslist_pairsByLevel(runInfo))
-    self:UnregisterEvent('CHALLENGE_MODE_MAPS_UPDATE')
+    lastupdate = time()
+    if (self.fn ~= nil) then
+      pluslist_fetchRewards(self.fn)
+      self.fn = nil
+    end
   end
 end)
 
@@ -37,6 +39,13 @@ function pluslist_colorByRank(rank)
   local epic, rare, uncommon = '|cffa335ee', '|cff0070dd', '|cff1eff00'
   local colors = { [1] = epic, [4] = rare, [10] = uncommon }
   return colors[rank] or ''
+end
+
+function pluslist_fetchRewards(projection)
+  local inclPrevWks = false
+  local inclIncompleteRuns = true
+  local runInfo = C_MythicPlus.GetRunHistory(inclPrevWks, inclIncompleteRuns)
+  projection(pluslist_pairsByLevel(runInfo))
 end
 
 function pluslist_verbose(runInfo)
@@ -69,9 +78,13 @@ end
 
 function CreateChatCommandHandler(fn)
   return function(msg, editbox)
-    cbframe:RegisterEvent('CHALLENGE_MODE_MAPS_UPDATE')
-    cbframe.fn = fn
-    C_MythicPlus.RequestMapInfo()
+    if time() - (lastupdate or 0) > 30 then
+      cbframe.fn = fn
+      C_MythicPlus.RequestMapInfo()
+      C_MythicPlus.RequestRewardInfo()
+    else
+      pluslist_fetchRewards(fn)
+    end
   end
 end
 
