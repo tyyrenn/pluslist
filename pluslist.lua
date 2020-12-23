@@ -1,9 +1,6 @@
 SLASH_PLUSLISTVERBOSE1 = '/pluslist'
 SLASH_PLUSLISTBRIEF1 = '/pl'
 
-if not WeeklyRewardsFrame then
-  WeeklyRewards_LoadUI()
-end
 local noRunsYetMessage = '|cffff0000Pluslist: No runs completed yet this week|r'
 local cbframe = CreateFrame('Frame', 'pluslist', UIParent)
 cbframe:SetScript('OnEvent', function(self, event)
@@ -74,7 +71,7 @@ function CreateChatCommandHandler(fn)
   return function(msg, editbox)
     cbframe:RegisterEvent('CHALLENGE_MODE_MAPS_UPDATE')
     cbframe.fn = fn
-    C_MythicPlus.RequestRewards()
+    C_MythicPlus.RequestMapInfo()
   end
 end
 
