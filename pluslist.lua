@@ -43,17 +43,10 @@ function pluslist_colorByRank(rank)
 end
 
 function pluslist_verbose(runInfo)
-  local rewards = {
-    [2] = 200,  [3] = 203,  [4] = 207,
-    [5] = 210,  [6] = 210,  [7] = 213,
-    [8] = 216,  [9] = 216, [10] = 220,
-   [11] = 220, [12] = 223, [13] = 223,
-   [14] = 226, [15] = 226
-  }
   local i = 1
   for _,run in runInfo do
     local color = pluslist_colorByRank(i)
-    local reward = rewards[math.min(run.level, 15)]
+    local reward = C_MythicPlus.GetRewardLevelForDifficultyLevel(run.level)
     local s = string.format('%s%d: +%d %s (%d)|r', color, i, run.level,
       C_ChallengeMode.GetMapUIInfo(run.mapChallengeModeID), reward)
     DEFAULT_CHAT_FRAME:AddMessage(s)
