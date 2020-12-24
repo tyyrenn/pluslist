@@ -81,7 +81,7 @@ function CreateChatCommandHandler(fn)
     if time() - (lastupdate or 0) > 30 then
       cbframe.fn = fn
       C_MythicPlus.RequestMapInfo()
-      C_MythicPlus.RequestRewardInfo()
+      C_MythicPlus.RequestRewards()
     else
       pluslist_fetchRewards(fn)
     end
