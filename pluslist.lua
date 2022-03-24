@@ -37,7 +37,7 @@ end
 
 function pluslist_colorByRank(rank)
   local epic, rare, uncommon = '|cffa335ee', '|cff0070dd', '|cff1eff00'
-  local colors = { [1] = epic, [4] = rare, [10] = uncommon }
+  local colors = { [1] = epic, [4] = rare, [8] = uncommon }
   return colors[rank] or ''
 end
 
@@ -57,7 +57,7 @@ function pluslist_verbose(runInfo)
       C_ChallengeMode.GetMapUIInfo(run.mapChallengeModeID), reward)
     DEFAULT_CHAT_FRAME:AddMessage(s)
     i = i + 1
-    if (i > 10) then break end
+    if (i > 8) then break end
   end
   if (i == 1) then
     DEFAULT_CHAT_FRAME:AddMessage(noRunsYetMessage)
