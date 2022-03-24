@@ -1,4 +1,4 @@
-## Interface: 90002
+## Interface: 90200
 ## Title: Plus List
 ## Notes: /pluslist or /pl to list your top 10 M+ runs this week
 ## Author: Tyyrenn-Zul'jin (US)
