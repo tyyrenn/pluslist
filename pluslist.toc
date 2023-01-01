@@ -1,6 +1,6 @@
 ## Interface: 100002
 ## Title: Plus List
-## Notes: /pluslist or /pl to list your top 10 M+ runs this week
+## Notes: /pluslist or /pl to list your top M+ runs this week
 ## Author: Tyyrenn-Zul'jin (US)
 ## X-Curse-Project-ID: 428407
 ## X-Wago-ID: nQN50PGB

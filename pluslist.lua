@@ -1,6 +1,7 @@
 SLASH_PLUSLISTVERBOSE1 = '/pluslist'
 SLASH_PLUSLISTBRIEF1 = '/pl'
 
+local MAX_RUNS_FOR_VAULT = 8
 local noRunsYetMessage = '|cffff0000Pluslist: No runs completed yet this week|r'
 local cbframe = CreateFrame('Frame', 'pluslist', UIParent)
 local lastupdate = nil
@@ -57,7 +58,7 @@ function pluslist_verbose(runInfo)
       C_ChallengeMode.GetMapUIInfo(run.mapChallengeModeID), reward)
     DEFAULT_CHAT_FRAME:AddMessage(s)
     i = i + 1
-    if (i > 8) then break end
+    if (i > MAX_RUNS_FOR_VAULT) then break end
   end
   if (i == 1) then
     DEFAULT_CHAT_FRAME:AddMessage(noRunsYetMessage)
@@ -71,7 +72,7 @@ function pluslist_brief(runInfo)
     local color = pluslist_colorByRank(i)
     s[i] = string.format('%s+%d|r', color, run.level)
     i = i + 1
-    if (i > 10) then break end
+    if (i > MAX_RUNS_FOR_VAULT) then break end
   end
   DEFAULT_CHAT_FRAME:AddMessage(table.concat(s, ', '))
 end
