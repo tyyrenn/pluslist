@@ -1,4 +1,4 @@
-## Interface: 100002
+## Interface: 100005
 ## Title: Plus List
 ## Notes: /pluslist or /pl to list your top M+ runs this week
 ## Author: Tyyrenn-Zul'jin (US)
