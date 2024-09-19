@@ -89,5 +89,9 @@ function CreateChatCommandHandler(fn)
   end
 end
 
+BINDING_HEADER_PLUSLIST = 'Pluslist'
+BINDING_NAME_PLUSLISTDJTOGGLE = "Toggle Dungeon Journal"
+BINDING_NAME_PLUSLISTGVTOGGLE = "Toggle Great Vault"
+
 SlashCmdList.PLUSLISTVERBOSE = CreateChatCommandHandler(pluslist_verbose)
 SlashCmdList.PLUSLISTBRIEF   = CreateChatCommandHandler(pluslist_brief)

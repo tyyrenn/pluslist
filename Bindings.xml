@@ -1,0 +1,17 @@
+<Bindings>
+  <Binding name="PLUSLISTDJTOGGLE" Category="BINDING_HEADER_PLUSLIST">
+    if not EncounterJournal then
+      EncounterJournal_LoadUI()
+    end
+    ToggleFrame(EncounterJournal)
+    EJ_ContentTab_Select(EncounterJournal.dungeonsTab:GetID())
+  </Binding>
+  <Binding name="PLUSLISTGVTOGGLE" Category="BINDING_HEADER_PLUSLIST">
+    C_AddOns.LoadAddOn("Blizzard_WeeklyRewards")
+    if not WeeklyRewardsFrame:IsVisible() then
+      WeeklyRewardsFrame:Show()
+    else
+      WeeklyRewardsFrame:Hide()
+    end
+  </Binding>
+</Bindings>
